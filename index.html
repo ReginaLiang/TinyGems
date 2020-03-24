@@ -1,13 +1,4 @@
-<!doctypehtml>
-<html lang=en-us>
-  <head>
-    <meta charset=utf-8>
-    <meta content="width=device-width,initial-scale=1,user-scalable=0" name=viewport>
-  </head>
-  <body style=margin:0;border:none;overflow:hidden;display:block>
-    <canvas id=UT_CANVAS style=display:block;touch-action:none tabindex=1></canvas>
-    <script type="application/javascript" src="TinyGems.js"></script>
-    <script>function b(url) { // Downloads a binary file and outputs it in the specified callback
+<!doctypehtml><html lang=en-us><head><meta charset=utf-8><meta content="width=device-width,initial-scale=1,user-scalable=0"name=viewport></head><body style=margin:0;border:none;overflow:hidden;display:block><canvas id=UT_CANVAS style=display:block;touch-action:none tabindex=1></canvas><script>function b(url) { // Downloads a binary file and outputs it in the specified callback
     return new Promise((ok, err) => {
       var x = new XMLHttpRequest();
       x.open('GET', url, true);
@@ -56,6 +47,6 @@ function revokeURL(url) {
   Promise.all([b('TinyGems.js'), b('TinyGems.wasm'), b('TinyGems.mem')]).then((r) => {
     Module.wasm = r[1];
     Module.mem = r[2];
-  });</script>
-  </body>
-</html>
+    var url = URL.createObjectURL(new Blob([r[0]], { type: 'application/javascript' }));
+    s(url).then(() => { revokeURL(url) });
+  });</script></body></html>
